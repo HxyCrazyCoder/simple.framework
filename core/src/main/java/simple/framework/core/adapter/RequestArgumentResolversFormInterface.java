@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 import org.springframework.web.servlet.mvc.method.annotation.ServletCookieValueMethodArgumentResolver;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
