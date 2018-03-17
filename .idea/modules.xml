@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-alipay-starter/sdk-alipay-starter.iml" filepath="$PROJECT_DIR$/sdk-alipay-starter/sdk-alipay-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-wechat-starter/sdk-wechat-starter.iml" filepath="$PROJECT_DIR$/sdk-wechat-starter/sdk-wechat-starter.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-admin/service-admin.iml" filepath="$PROJECT_DIR$/service-admin/service-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-config/service-config.iml" filepath="$PROJECT_DIR$/service-config/service-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-eureka/service-eureka.iml" filepath="$PROJECT_DIR$/service-eureka/service-eureka.iml" />
