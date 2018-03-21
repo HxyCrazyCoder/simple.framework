@@ -1,6 +1,5 @@
 package simple.framework.core.configuration;
 
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

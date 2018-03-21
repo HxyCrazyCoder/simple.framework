@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import simple.framework.core.adapter.RequestArgumentResolversFormInterface;
 import simple.framework.core.configuration.RestTemplateConfiguration;
@@ -32,10 +33,10 @@ public class CoreAutoConfig {
     }
 
     @Bean
-    public SDKRegisterPostProcessor sdkRegisterPostProcessor(@Value("${simple.sdk.enable.basePackages}") String[] basePackages){
-        basePackages[0] = "simple.framework.sdk.wechat.api";
-        return new SDKRegisterPostProcessor(basePackages);
+    public SDKRegisterPostProcessor sdkRegisterPostProcessor(){
+        return new SDKRegisterPostProcessor();
     }
+
 
     @Bean
     public RestTemplateConfiguration templateConfiguration(){

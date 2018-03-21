@@ -1,8 +1,10 @@
 package simple.framework.core.sdk;
 
+import org.apache.commons.lang.StringUtils;
 import org.reflections.Reflections;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -26,20 +28,22 @@ import java.util.Set;
  */
 public class SDKRegisterPostProcessor implements BeanDefinitionRegistryPostProcessor,EnvironmentAware {
 
-    private String [] basePackages;
 
-    public SDKRegisterPostProcessor(String[] basePackages) {
-        this.basePackages = basePackages;
+    public SDKRegisterPostProcessor() {
+
     }
-
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
 
+        String  basePackages = environment.getProperty("simple.sdk.scan.packages");
+        if(StringUtils.isBlank(basePackages)){
+            return;
+        }
 
         ClassPathScanningCandidateComponentProvider scanner = getScanner();
         scanner.addIncludeFilter(new AnnotationTypeFilter(SDKApi.class));
 
-        for (String basePackage : basePackages) {
+        for (String basePackage : basePackages.split(",")) {
             Set<BeanDefinition> candidates = scanner.findCandidateComponents(basePackage);
             candidates.forEach((BeanDefinition beanDefinition)->{
 

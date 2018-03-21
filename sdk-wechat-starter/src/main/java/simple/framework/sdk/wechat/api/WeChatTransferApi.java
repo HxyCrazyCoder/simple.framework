@@ -9,7 +9,6 @@ import simple.framework.core.annotation.SDKApi;
  * Created on 2018/3/21 10:56
  * Created by huangxy
  */
-@SDKApi
 public interface WeChatTransferApi {
 
 
