@@ -17,6 +17,8 @@
         <module>service-zuul</module>
         <module>sdk-wechat-starter</module>
         <module>sdk-alipay-starter</module>
+        <module>sdk-im-starter</module>
+        <module>sdk-unionpay-starter</module>
     </modules>
 
 

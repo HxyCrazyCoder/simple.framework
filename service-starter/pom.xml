@@ -86,12 +86,14 @@
             <artifactId>gson</artifactId>
             <version>${google.gson}</version>
         </dependency>
+
         <!-- JSON setting -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>

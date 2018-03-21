@@ -11,5 +11,37 @@
 
     <artifactId>sdk-wechat-starter</artifactId>
 
+    <properties>
+        <framework.version>1.0-SNAPSHOT</framework.version>
+    </properties>
+
+
+
+    <!--项目引用个人starter框架即可-->
+    <dependencies>
+
+        <!--框架-->
+        <dependency>
+            <groupId>simple.framework</groupId>
+            <artifactId>core</artifactId>
+            <version>${framework.version}</version>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>simple.framework</groupId>
+            <artifactId>service-starter</artifactId>
+            <version>${framework.version}</version>
+            <type>pom</type>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
 
 </project>
