@@ -4,6 +4,8 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sdk-alipay-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-im-starter" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-unionpay-starter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sdk-wechat-starter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-admin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-config" charset="UTF-8" />

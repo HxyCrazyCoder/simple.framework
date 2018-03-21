@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sdk-alipay-starter/sdk-alipay-starter.iml" filepath="$PROJECT_DIR$/sdk-alipay-starter/sdk-alipay-starter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sdk-wechat-starter/sdk-wechat-starter.iml" filepath="$PROJECT_DIR$/sdk-wechat-starter/sdk-wechat-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-alipay-starter/sdk-alipay.iml" filepath="$PROJECT_DIR$/sdk-alipay-starter/sdk-alipay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-im-starter/sdk-im.iml" filepath="$PROJECT_DIR$/sdk-im-starter/sdk-im.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-unionpay-starter/sdk-unionpay.iml" filepath="$PROJECT_DIR$/sdk-unionpay-starter/sdk-unionpay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-wechat-starter/sdk-wechat.iml" filepath="$PROJECT_DIR$/sdk-wechat-starter/sdk-wechat.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-admin/service-admin.iml" filepath="$PROJECT_DIR$/service-admin/service-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-config/service-config.iml" filepath="$PROJECT_DIR$/service-config/service-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-eureka/service-eureka.iml" filepath="$PROJECT_DIR$/service-eureka/service-eureka.iml" />
