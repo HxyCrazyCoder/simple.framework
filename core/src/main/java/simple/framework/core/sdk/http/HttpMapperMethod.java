@@ -1,10 +1,16 @@
 package simple.framework.core.sdk.http;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.HttpEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import simple.framework.core.annotation.SDKApi;
 import simple.framework.core.annotation.SDKOperation;
+import simple.framework.core.sdk.SDKHttpRequest;
+import simple.framework.core.sdk.SDKMapperMethod;
 
 import java.lang.reflect.Method;
 
@@ -15,30 +21,16 @@ import java.lang.reflect.Method;
  * Created on 2018/3/20 13:44
  * Created by huangxy
  */
-public class HttpRestTemplateMapperMethod {
+@Component
+public class HttpMapperMethod implements SDKMapperMethod {
 
-    private SDKApi sdkApi;
-
-    private SDKOperation sdkOperation;
-
-    private Method method;
-
+    @Autowired
     private RestTemplate restTemplate;
 
-    public HttpRestTemplateMapperMethod(SDKApi sdkApi,SDKOperation sdkOperation,Method method,RestTemplate restTemplate) {
-        this.sdkApi = sdkApi;
-        this.sdkOperation = sdkOperation;
-        this.restTemplate = restTemplate;
-        this.method = method;
-    }
+    @Override
+    public Object execute(Method method, Object[] args) {
 
-    /**
-     * 默认参数
-     * @param args
-     * @return
-     */
-    public Object execute(Object[] args){
-
+        SDKOperation sdkOperation = method.getAnnotation(SDKOperation.class);
         SDKHttpRequest request = null;
         for (int i = 0; i < args.length; i++) {
             Object arg = args[i];
@@ -47,6 +39,7 @@ public class HttpRestTemplateMapperMethod {
             }
         }
 
+        HttpEntity httpEntity = new HttpEntity(request.getBody(),request.getHeaders());
         /**
          * 调用远程执行
          */
@@ -54,10 +47,9 @@ public class HttpRestTemplateMapperMethod {
             case GET:
                 return restTemplate.getForEntity(sdkOperation.url(),request.getResponseClass(),request.getUriVariables());
             case POST:
-                return restTemplate.postForEntity(sdkOperation.url(),request.getBody(),request.getResponseClass(),request.getUriVariables());
+                return restTemplate.postForEntity(sdkOperation.url(),httpEntity,request.getResponseClass(),request.getUriVariables());
             default:
                 throw new RuntimeException("not support method");
         }
-
     }
 }

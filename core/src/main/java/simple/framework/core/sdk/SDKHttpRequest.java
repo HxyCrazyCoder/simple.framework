@@ -1,4 +1,6 @@
-package simple.framework.core.sdk.http;
+package simple.framework.core.sdk;
+
+import org.springframework.http.HttpHeaders;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +20,17 @@ public class SDKHttpRequest<T> {
 
     private Class<T> responseClass;
 
+    private HttpHeaders headers;
+
     private SDKHttpRequest(Builder builder){
         this.uriVariables = builder.uriVariables;
         this.body = builder.body;
         this.responseClass = builder.responseClass;
+        this.headers = builder.headers;
+    }
+
+    public HttpHeaders getHeaders() {
+        return headers;
     }
 
     public Map<String, Object> getUriVariables() {
@@ -44,6 +53,7 @@ public class SDKHttpRequest<T> {
 
         private Class<T> responseClass;
 
+        private HttpHeaders headers = new HttpHeaders();
 
         public Builder setUriVariables(Map<String, Object> uriVariables) {
             this.uriVariables = uriVariables;
@@ -52,6 +62,11 @@ public class SDKHttpRequest<T> {
 
         public Builder addUriVariables(String key,Object val){
             this.uriVariables.put(key,val);
+            return this;
+        }
+
+        public Builder addHeader(String key,String val){
+            headers.add(key,val);
             return this;
         }
 

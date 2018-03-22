@@ -29,16 +29,16 @@ import java.util.List;
 public class RestTemplateConfiguration {
 
 
-    @Value("${remote.maxTotalConnect:10}")
+    @Value("${rest.remote.maxTotalConnect:10}")
     private int maxTotalConnect; //连接池的最大连接数默认为0
 
-    @Value("${remote.maxConnectPerRoute:20}")
+    @Value("${rest.remote.maxConnectPerRoute:20}")
     private int maxConnectPerRoute; //单个主机的最大连接数
 
-    @Value("${remote.connectTimeout:2000}")
+    @Value("${rest.remote.connectTimeout:2000}")
     private int connectTimeout; //连接超时默认2s
 
-    @Value("${remote.readTimeout:30000}")
+    @Value("${rest.remote.readTimeout:30000}")
     private int readTimeout; //读取超时默认30s
 
 

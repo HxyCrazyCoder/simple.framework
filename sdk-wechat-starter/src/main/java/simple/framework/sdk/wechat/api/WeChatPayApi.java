@@ -3,7 +3,7 @@ package simple.framework.sdk.wechat.api;
 import org.springframework.http.ResponseEntity;
 import simple.framework.core.annotation.SDKApi;
 import simple.framework.core.annotation.SDKOperation;
-import simple.framework.core.sdk.http.SDKHttpRequest;
+import simple.framework.core.sdk.SDKHttpRequest;
 
 /**
  * Copyright (c) 2017-2018 Wuhan Yryz Network Company LTD.

@@ -1,9 +1,12 @@
 package simple.framework.core.sdk;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.client.RestTemplate;
-import simple.framework.core.sdk.http.HttpRestTemplateMapperMethod;
+import simple.framework.core.sdk.http.HttpMapperMethod;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -18,14 +21,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created on 2018/3/20 14:04
  * Created by huangxy
  */
-public class SDKMapperProxyFactoryBean<T> implements FactoryBean<T>,Serializable{
+public class SDKMapperProxyFactoryBean<T> implements FactoryBean<T>,ApplicationContextAware,Serializable {
 
     private Class<T> mapperInterface;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    private final Map<Method, HttpRestTemplateMapperMethod> methodCache = new ConcurrentHashMap<Method, HttpRestTemplateMapperMethod>();
+    private ApplicationContext applicationContext;
 
     public SDKMapperProxyFactoryBean(){};
 
@@ -39,7 +38,7 @@ public class SDKMapperProxyFactoryBean<T> implements FactoryBean<T>,Serializable
 
     @Override
     public T getObject() throws Exception {
-        SDKMapperProxy sdkMapperProxy = new SDKMapperProxy(methodCache,restTemplate);
+        SDKMapperProxy sdkMapperProxy = new SDKMapperProxy(applicationContext);
         return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(),
                 new Class[] { mapperInterface },sdkMapperProxy);
     }
@@ -56,5 +55,8 @@ public class SDKMapperProxyFactoryBean<T> implements FactoryBean<T>,Serializable
     }
 
 
-
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

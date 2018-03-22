@@ -20,6 +20,8 @@ public @interface SDKOperation {
 
     String url() default "";
 
+    String path() default "";
+
     RequestMethod method() default RequestMethod.POST;
 
     Class<?> proxyClass() default Void.class;

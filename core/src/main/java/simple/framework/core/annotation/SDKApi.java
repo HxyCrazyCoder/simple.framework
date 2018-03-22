@@ -1,6 +1,8 @@
 package simple.framework.core.annotation;
 
 import org.springframework.web.bind.annotation.RequestMethod;
+import simple.framework.core.sdk.SDKMapperMethod;
+import simple.framework.core.sdk.http.HttpMapperMethod;
 
 import java.lang.annotation.*;
 
@@ -18,6 +20,8 @@ public @interface SDKApi {
 
     String name() default "";
 
-    Class<?> proxyClass() default Void.class;
+    String url() default "";
+
+    Class< ? extends SDKMapperMethod> proxyClass() default HttpMapperMethod.class;
 
 }

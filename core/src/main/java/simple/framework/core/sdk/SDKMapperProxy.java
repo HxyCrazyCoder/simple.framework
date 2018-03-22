@@ -1,11 +1,14 @@
 package simple.framework.core.sdk;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.UsesJava7;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import simple.framework.core.annotation.SDKApi;
 import simple.framework.core.annotation.SDKOperation;
-import simple.framework.core.sdk.http.HttpRestTemplateMapperMethod;
+import simple.framework.core.sdk.http.HttpMapperMethod;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -22,16 +25,12 @@ import java.util.Map;
  * Created on 2018/3/20 13:42
  * Created by huangxy
  */
-public class SDKMapperProxy<T> implements InvocationHandler,Serializable{
+@Component
+public class SDKMapperProxy<T> implements InvocationHandler,Serializable {
 
-    private final Map<Method, HttpRestTemplateMapperMethod> methodCache;
-    private RestTemplate restTemplate;
-
-    public SDKMapperProxy(Map<Method, HttpRestTemplateMapperMethod> methodCache,RestTemplate restTemplate) {
-        this.methodCache = methodCache;
-        this.restTemplate = restTemplate;
+    public SDKMapperProxy(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
-
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         try {
@@ -43,25 +42,11 @@ public class SDKMapperProxy<T> implements InvocationHandler,Serializable{
         } catch (Throwable t) {
             throw t;
         }
+        SDKApi sdkApi = method.getDeclaringClass().getAnnotation(SDKApi.class);
+        final SDKMapperMethod sdkMapperMethod = applicationContext.getBean(sdkApi.proxyClass());
+        return sdkMapperMethod.execute(method,args);
 
-        final HttpRestTemplateMapperMethod mapperMethod = cachedMapperMethod(method);
-        return mapperMethod.execute(args);
     }
-
-
-    private HttpRestTemplateMapperMethod cachedMapperMethod(Method method) {
-        HttpRestTemplateMapperMethod mapperMethod = methodCache.get(method);
-        if (mapperMethod == null) {
-            /**
-             * 默认http模式
-             */
-            mapperMethod = new HttpRestTemplateMapperMethod(method.getClass().getAnnotation(SDKApi.class)
-                    ,method.getAnnotation(SDKOperation.class),method,restTemplate);
-            methodCache.put(method, mapperMethod);
-        }
-        return mapperMethod;
-    }
-
 
     @UsesJava7
     private Object invokeDefaultMethod(Object proxy, Method method, Object[] args)
@@ -86,5 +71,7 @@ public class SDKMapperProxy<T> implements InvocationHandler,Serializable{
                 & (Modifier.ABSTRACT | Modifier.PUBLIC | Modifier.STATIC)) == Modifier.PUBLIC)
                 && method.getDeclaringClass().isInterface();
     }
+
+    private ApplicationContext applicationContext;
 
 }
