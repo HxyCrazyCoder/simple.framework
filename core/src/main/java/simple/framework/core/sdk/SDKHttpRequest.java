@@ -22,11 +22,18 @@ public class SDKHttpRequest<T> {
 
     private HttpHeaders headers;
 
+    private Map<String,String> customVariables;
+
     private SDKHttpRequest(Builder builder){
         this.uriVariables = builder.uriVariables;
         this.body = builder.body;
         this.responseClass = builder.responseClass;
         this.headers = builder.headers;
+        this.customVariables = builder.customVariables;
+    }
+
+    public Map<String, String> getCustomVariables() {
+        return customVariables;
     }
 
     public HttpHeaders getHeaders() {
@@ -55,6 +62,8 @@ public class SDKHttpRequest<T> {
 
         private HttpHeaders headers = new HttpHeaders();
 
+        private Map<String,String> customVariables = new HashMap<>();
+
         public Builder setUriVariables(Map<String, Object> uriVariables) {
             this.uriVariables = uriVariables;
             return this;
@@ -78,6 +87,10 @@ public class SDKHttpRequest<T> {
         public Builder setResponseClass(Class<T> responseClass) {
             this.responseClass = responseClass;
             return this;
+        }
+
+        public void setCustomVariables(Map<String, String> customVariables) {
+            this.customVariables = customVariables;
         }
 
         public SDKHttpRequest builder(){

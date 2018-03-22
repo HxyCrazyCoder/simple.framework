@@ -42,11 +42,18 @@ public class SDKMapperProxy<T> implements InvocationHandler,Serializable {
         } catch (Throwable t) {
             throw t;
         }
+
         SDKApi sdkApi = method.getDeclaringClass().getAnnotation(SDKApi.class);
-        final SDKMapperMethod sdkMapperMethod = applicationContext.getBean(sdkApi.proxyClass());
+        SDKOperation sdkOperation = method.getAnnotation(SDKOperation.class);
+        if(sdkOperation==null){
+            throw new RuntimeException("method :"+method.getName()+" required annotation 'SDKOperation'");
+        }
+
+        final SDKMapperMethod sdkMapperMethod = applicationContext.getBean(sdkApi.proxyClass().getName(),sdkApi.proxyClass());
         return sdkMapperMethod.execute(method,args);
 
     }
+
 
     @UsesJava7
     private Object invokeDefaultMethod(Object proxy, Method method, Object[] args)
