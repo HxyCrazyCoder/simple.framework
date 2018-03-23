@@ -28,9 +28,12 @@ import java.util.Map;
 @Component
 public class SDKMapperProxy<T> implements InvocationHandler,Serializable {
 
+    private ApplicationContext applicationContext;
+
     public SDKMapperProxy(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         try {
@@ -49,7 +52,7 @@ public class SDKMapperProxy<T> implements InvocationHandler,Serializable {
             throw new RuntimeException("method :"+method.getName()+" required annotation 'SDKOperation'");
         }
 
-        final SDKMapperMethod sdkMapperMethod = applicationContext.getBean(sdkApi.proxyClass().getName(),sdkApi.proxyClass());
+        final SDKMapperMethod sdkMapperMethod = applicationContext.getBean(sdkApi.proxyClass());
         return sdkMapperMethod.execute(method,args);
 
     }
@@ -79,6 +82,6 @@ public class SDKMapperProxy<T> implements InvocationHandler,Serializable {
                 && method.getDeclaringClass().isInterface();
     }
 
-    private ApplicationContext applicationContext;
+
 
 }

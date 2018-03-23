@@ -45,11 +45,7 @@
 
     <dependencies>
 
-        <!--framework(实现core包，service-starter由应用项目导入实现)-->
-        <dependency>
-            <groupId>simple.framework</groupId>
-            <artifactId>core</artifactId>
-        </dependency>
+
         <!--其他公用组件-->
 
         <!-- servlet、jsp setting -->
@@ -165,6 +161,15 @@
             <version>2.7.0</version>
         </dependency>
 
+        <!--cache-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
     </dependencies>
 
     <!--
@@ -228,6 +233,7 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
             </dependency>
+
 
         </dependencies>
     </dependencyManagement>

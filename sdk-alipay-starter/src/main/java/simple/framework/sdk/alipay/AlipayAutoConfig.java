@@ -1,6 +1,8 @@
 package simple.framework.sdk.alipay;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import simple.framework.sdk.alipay.config.AlipayConfigProperties;
 
 /**
@@ -10,6 +12,8 @@ import simple.framework.sdk.alipay.config.AlipayConfigProperties;
  * Created on 2018/3/19 15:15
  * Created by huangxy
  */
+@Configuration
+@ComponentScan(basePackages = "simple.framework.sdk.alipay")
 public class AlipayAutoConfig {
 
     @Bean
