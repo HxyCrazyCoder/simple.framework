@@ -9,25 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-
-    <!--<parent>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
-        <!--<version>2.0.0.RELEASE</version>-->
-    <!--</parent>-->
-
-
     <modules>
         <module>core</module>
-        <module>service-eureka</module>
-        <module>service-admin</module>
         <module>service-starter</module>
-        <module>service-config</module>
-        <module>service-zuul</module>
-        <module>sdk-wechat-starter</module>
-        <module>sdk-alipay-starter</module>
-        <module>sdk-im-starter</module>
-        <module>sdk-unionpay-starter</module>
     </modules>
 
 
@@ -47,12 +31,42 @@
         <spring.boot.version>2.0.0.RELEASE</spring.boot.version>
         <spring.cloud.version>Finchley.M7</spring.cloud.version>
 
+        <!-- mysql and mybatis setting -->
+        <pagehelper.boot.version>1.2.3</pagehelper.boot.version>
+        <mysql.driver.version>5.1.30</mysql.driver.version>
+        <druid.version>1.1.5</druid.version>
+
+        <elastic-job.version>2.1.5</elastic-job.version>
+        <cglib.version>2.2</cglib.version>
+
+        <!-- servlet setting  -->
+        <jsp.version>2.0</jsp.version>
+        <jstl.version>1.2</jstl.version>
+        <servlet.version>2.5</servlet.version>
+
+        <!-- google's setting -->
+        <google.guava>18.0</google.guava>
+        <google.gson>2.8.0</google.gson>
+
+        <!-- JSON setting -->
+        <fastjson.version>1.2.12</fastjson.version>
+        <fastjackson.version>2.8.6</fastjackson.version>
+        <org.json.version>20151123</org.json.version>
+        <!-- common-lang -->
+        <commons.lang3.version>3.4</commons.lang3.version>
+        <!--commons.collections.version-->
+        <commons.collections.version>3.2.2</commons.collections.version>
+        <querydsl.version>4.2.1</querydsl.version>
+        <jetcache.version>2.4.4</jetcache.version>
+
     </properties>
 
     <!--依赖声明-->
     <dependencyManagement>
+
         <dependencies>
 
+            <!--spring boot-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -70,10 +84,70 @@
                 <scope>import</scope>
             </dependency>
 
+            <!--jetcache-->
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-starter-redis</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+
+            <!--querydsl-->
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-sql</artifactId>
+                <version>${querydsl.version}</version>
+            </dependency>
+
+            <!-- elatic-job-->
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>elastic-job-lite-core</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+                <scope>provided</scope>
+                <version>${elastic-job.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>elastic-job-lite-spring</artifactId>
+                <version>${elastic-job.version}</version>
+            </dependency>
+
+
+            <!-- mysql -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.driver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
 
         </dependencies>
-
     </dependencyManagement>
+
+
 
     <build>
         <pluginManagement>
@@ -82,6 +156,13 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>pl.project13.maven</groupId>
@@ -93,7 +174,7 @@
     </build>
 
 
-     <!--Maven私服设置-->
+    <!-- Maven私服设置 -->
     <repositories>
         <repository>
             <id>spring-milestones</id>
@@ -103,6 +184,26 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://192.168.30.30:8080/nexus/content/groups/public</url>
+            <snapshots>
+                <checksumPolicy>warn</checksumPolicy>
+                <enabled>true</enabled>
+                <updatePolicy>interval:10</updatePolicy>
+            </snapshots>
+        </repository>
     </repositories>
 
+    <distributionManagement>
+        <repository>
+            <id>pango-releases</id>
+            <url>http://192.168.30.30:8080/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>pango-snapshots</id>
+            <url>http://192.168.30.30:8080/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

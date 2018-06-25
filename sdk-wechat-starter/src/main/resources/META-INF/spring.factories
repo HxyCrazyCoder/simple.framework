@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=simple.framework.sdk.wechat.WeChatAutoConfig
