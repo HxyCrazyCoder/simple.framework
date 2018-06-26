@@ -3,11 +3,9 @@ package simple.framework.core.adapter;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import simple.framework.core.wrapper.BeanQueryCondition;
 
-import java.beans.PropertyDescriptor;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +25,7 @@ public class ElasticsearchQueryResolver {
         Map<String, List<BeanQueryCondition.Meta>> cdtMap = cdt.getConditionData();
         cdtMap.forEach((k,v)->{
             v.forEach(item->{
-                QueryBuilder builder = toCreateFieldBuilder(item,clazz);
+                QueryBuilder builder = toCreateFieldBuilder(item);
                 if (builder==null){
                     return;
                 }
@@ -38,7 +36,7 @@ public class ElasticsearchQueryResolver {
         return boolQuery;
     }
 
-    private QueryBuilder toCreateFieldBuilder(BeanQueryCondition.Meta meta,Class<?> clazz){
+    private QueryBuilder toCreateFieldBuilder(BeanQueryCondition.Meta meta){
         String property = meta.getProperty();
         switch (meta.getFunc()) {
             case "eq":

@@ -19,7 +19,6 @@ public class BeanQueryCondition implements Serializable{
     private String dimensionType;
     private Map<String,List<Meta>> conditionData;
     private PageRequest page;
-
     private BeanQueryCondition(){}
 
     private BeanQueryCondition(String [] selectColumn,String dimensionType,Map<String, List<Meta>> conditionData,PageRequest page) {
@@ -53,7 +52,7 @@ public class BeanQueryCondition implements Serializable{
         this.conditionData = conditionData;
     }
 
-    public static class Meta{
+    public static class Meta implements Serializable{
 
         private String property;
 
@@ -93,7 +92,7 @@ public class BeanQueryCondition implements Serializable{
         private String dimensionType;
         private Map<String,BeanQueryWrapper> wrapperMap = new HashMap<>();
 
-        private PageRequest page;
+        private PageRequest page = new PageRequest();
 
         public BeanQueryFunction property(String name){
             BeanQueryWrapper wrapper = wrapperMap.get(name);
@@ -103,6 +102,7 @@ public class BeanQueryCondition implements Serializable{
             }
             return wrapper;
         }
+
         public Builder dimensionType(String dimensionType){
             this.dimensionType = dimensionType;
             return this;
